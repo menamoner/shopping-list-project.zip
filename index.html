@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>قايمة مشترياتي</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4f46e5">
+<meta name="author" content="Mina Mounir">
+<meta name="copyright" content="© 2026 Mina Mounir">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--tx:#1b2333;--mu:#6b7488;--pr:#4f46e5;--pr2:#7c3aed;--ok:#16a34a;--bd:#e4e8f1;--warn:#f59e0b;--bad:#dc2626;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1420;--card:#192032;--tx:#eef1f8;--mu:#97a1b8;--pr:#818cf8;--pr2:#a78bfa;--ok:#4ade80;--bd:#2a3350;--warn:#fbbf24;--bad:#f87171}}
+:root[data-theme="dark"]{--bg:#0f1420;--card:#192032;--tx:#eef1f8;--mu:#97a1b8;--pr:#818cf8;--pr2:#a78bfa;--ok:#4ade80;--bd:#2a3350;--warn:#fbbf24;--bad:#f87171}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:'Tajawal',system-ui,sans-serif;max-width:640px;margin-inline:auto;padding:14px 14px 40px}
+h1{font-size:24px;margin:6px 0 14px;display:flex;justify-content:space-between;align-items:center}
+.hero{background:linear-gradient(135deg,var(--pr),var(--pr2));color:#fff;border-radius:20px;padding:18px;box-shadow:0 10px 28px rgba(79,70,229,.28)}
+.hero small{opacity:.85;font-size:14px}
+.hero .big{font-size:36px;font-weight:800;margin:2px 0 10px}
+.bar{height:10px;background:rgba(255,255,255,.28);border-radius:9px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#fff;border-radius:9px;transition:width .5s}
+.hero .row{display:flex;justify-content:space-between;margin-top:8px;font-size:13px;opacity:.95}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0}
+.st{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:12px}
+.st b{display:block;font-size:20px;margin-top:2px}
+.st span{font-size:12px;color:var(--mu)}
+.add{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:12px;display:grid;grid-template-columns:1fr 90px 70px;gap:8px}
+input{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:11px;width:100%;min-width:0}
+input:focus{outline:2px solid var(--pr);border-color:transparent}
+.add button{grid-column:1/-1}
+button{font:inherit;font-weight:700;border:0;border-radius:12px;padding:12px;background:var(--pr);color:#fff;cursor:pointer}
+button:active{transform:scale(.97)}
+.tabs{display:flex;gap:8px;margin:14px 0 8px}
+.tabs button{flex:1;background:var(--card);color:var(--mu);border:1px solid var(--bd);padding:9px}
+.tabs button.on{background:var(--pr);color:#fff;border-color:var(--pr)}
+.it{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:12px;margin-bottom:8px}
+.it.done .nm{text-decoration:line-through;color:var(--mu)}
+.ck{width:26px;height:26px;accent-color:var(--ok)}
+.nm{font-weight:700}
+.mt{font-size:12px;color:var(--mu);margin-top:3px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.mt input{width:74px;padding:5px 8px;font-size:13px;border-radius:9px}
+.tot{font-weight:800;text-align:left;white-space:nowrap}
+.x{background:none;color:var(--bad);padding:2px 6px;font-size:18px;display:block;margin-top:2px;margin-inline-start:auto}
+.empty{text-align:center;color:var(--mu);padding:30px 0}
+.foot{display:flex;gap:8px;margin-top:14px}
+.foot button{flex:1;background:var(--card);color:var(--tx);border:1px solid var(--bd)}
+.brand{display:flex;align-items:center;gap:10px}.brand img{border-radius:10px}
+.cp{margin-top:28px;padding-top:16px;border-top:1px solid var(--bd);text-align:center;color:var(--mu);font-size:13px;line-height:1.9}
+.cp img{border-radius:8px;vertical-align:middle;margin-inline-start:6px}.cp a{color:var(--pr);text-decoration:none;font-weight:700;direction:ltr;unicode-bidi:embed}
+.top{background:none;border:1px solid var(--bd);color:var(--tx);padding:6px 10px;border-radius:10px;font-size:16px}
+</style>
+</head>
+<body>
+<h1><span class="brand"><img src="logo.svg" alt="" width="38" height="38"> قايمة مشترياتي</span> <button class="top" id="th" aria-label="الوضع">🌓</button></h1>
+
+<div class="hero">
+  <small>إجمالي القايمة</small>
+  <div class="big" id="total">0 ج.م</div>
+  <div class="bar"><i id="pb"></i></div>
+  <div class="row"><span id="pt">تم شراء 0 من 0</span><span id="pp">0%</span></div>
+</div>
+
+<div class="stats">
+  <div class="st"><span>✅ اتشترى</span><b id="sBought">0 ج.م</b></div>
+  <div class="st"><span>⏳ لسه هتشتريه</span><b id="sLeft">0 ج.م</b></div>
+  <div class="st"><span>💎 أغلى حاجة</span><b id="sMax">—</b></div>
+  <div class="st"><span>📊 متوسط السعر</span><b id="sAvg">0 ج.م</b></div>
+</div>
+
+<div class="add">
+  <input id="n" placeholder="اسم الحاجة" autocomplete="off">
+  <input id="p" type="number" inputmode="decimal" placeholder="السعر">
+  <input id="q" type="number" inputmode="numeric" placeholder="العدد" value="1" min="1">
+  <button id="addBtn">＋ إضافة</button>
+</div>
+
+<div class="tabs">
+  <button data-f="all" class="on">الكل</button>
+  <button data-f="todo">لسه</button>
+  <button data-f="done">اتشترى</button>
+</div>
+
+<div id="list"></div>
+
+<div class="foot">
+  <button id="copy">📋 نسخ القايمة</button>
+  <button id="clr">🧹 مسح اللي اتشترى</button>
+</div>
+
+<footer class="cp"><img src="logo.svg" alt="" width="22" height="22"> <b>قايمة مشترياتي</b><br>© 2026 Mina Mounir — جميع الحقوق محفوظة<br>للتواصل: <a href="tel:01223275779">01223275779</a></footer>
+
+<script>
+var items=[],filter='all';
+try{items=JSON.parse(localStorage.getItem('shop_items')||'[]')}catch(e){items=[]}
+var $=function(i){return document.getElementById(i)};
+function save(){try{localStorage.setItem('shop_items',JSON.stringify(items))}catch(e){}}
+function fmt(n){return (Math.round(n*100)/100).toLocaleString('ar-EG')+' ج.م'}
+function sum(a){return a.reduce(function(s,i){return s+i.price*i.qty},0)}
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function render(){
+  var done=items.filter(function(i){return i.done}),all=sum(items),b=sum(done);
+  $('total').textContent=fmt(all);
+  $('sBought').textContent=fmt(b);
+  $('sLeft').textContent=fmt(all-b);
+  var pct=items.length?Math.round(done.length/items.length*100):0;
+  $('pb').style.width=pct+'%';
+  $('pp').textContent=pct.toLocaleString('ar-EG')+'%';
+  $('pt').textContent='تم شراء '+done.length.toLocaleString('ar-EG')+' من '+items.length.toLocaleString('ar-EG');
+  var mx=items.slice().sort(function(a,c){return c.price-a.price})[0];
+  $('sMax').textContent=mx&&mx.price>0?mx.name+' · '+fmt(mx.price):'—';
+  var pr=items.filter(function(i){return i.price>0});
+  $('sAvg').textContent=pr.length?fmt(pr.reduce(function(s,i){return s+i.price},0)/pr.length):fmt(0);
+  var v=items.filter(function(i){return filter==='all'||(filter==='done'?i.done:!i.done)});
+  $('list').innerHTML=v.length?v.map(function(i){
+    return '<div class="it'+(i.done?' done':'')+'"><input type="checkbox" class="ck" data-id="'+i.id+'"'+(i.done?' checked':'')+'>'+
+    '<div><div class="nm">'+esc(i.name)+'</div><div class="mt"><input type="number" inputmode="decimal" data-pr="'+i.id+'" value="'+i.price+'"> ج.م × '+
+    '<input type="number" inputmode="numeric" min="1" data-qt="'+i.id+'" value="'+i.qty+'"></div></div>'+
+    '<div><div class="tot">'+fmt(i.price*i.qty)+'</div><button class="x" data-del="'+i.id+'">✕</button></div></div>';
+  }).join(''):'<div class="empty">مفيش حاجات هنا لسه 🌱</div>';
+}
+function add(){
+  var n=$('n').value.trim();if(!n){$('n').focus();return}
+  items.unshift({id:Date.now(),name:n,price:parseFloat($('p').value)||0,qty:Math.max(1,parseInt($('q').value)||1),done:false});
+  $('n').value='';$('p').value='';$('q').value='1';save();render();$('n').focus();
+}
+$('addBtn').onclick=add;
+$('n').onkeydown=function(e){if(e.key==='Enter')add()};
+$('list').onchange=function(e){
+  var t=e.target,id;
+  if(t.dataset.id){id=+t.dataset.id;items.forEach(function(i){if(i.id===id)i.done=t.checked})}
+  else if(t.dataset.pr){id=+t.dataset.pr;items.forEach(function(i){if(i.id===id)i.price=parseFloat(t.value)||0})}
+  else if(t.dataset.qt){id=+t.dataset.qt;items.forEach(function(i){if(i.id===id)i.qty=Math.max(1,parseInt(t.value)||1)})}
+  save();render();
+};
+$('list').onclick=function(e){
+  var d=e.target.dataset.del;if(!d)return;
+  items=items.filter(function(i){return i.id!==+d});save();render();
+};
+document.querySelectorAll('.tabs button').forEach(function(b){
+  b.onclick=function(){filter=b.dataset.f;document.querySelectorAll('.tabs button').forEach(function(x){x.classList.toggle('on',x===b)});render()};
+});
+$('clr').onclick=function(){
+  if(items.some(function(i){return i.done})&&confirm('تمسح كل اللي اتشترى؟')){items=items.filter(function(i){return !i.done});save();render()}
+};
+$('copy').onclick=function(){
+  var t=items.map(function(i){return (i.done?'✅ ':'⬜ ')+i.name+' — '+i.qty+' × '+i.price+' = '+i.price*i.qty}).join('\n')+'\n\nالإجمالي: '+sum(items);
+  try{navigator.clipboard.writeText(t);$('copy').textContent='✔ اتنسخت'}catch(e){$('copy').textContent='تعذّر النسخ'}
+  setTimeout(function(){$('copy').textContent='📋 نسخ القايمة'},1500);
+};
+$('th').onclick=function(){
+  var r=document.documentElement,dk=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;
+  r.dataset.theme=dk?'light':'dark';
+};
+render();
+if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0){try{navigator.serviceWorker.register('sw.js')}catch(e){}}
+</script>
+</body>
+</html>
